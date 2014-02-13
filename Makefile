@@ -2,7 +2,7 @@ OUTFILE = sfml-test
 
 FILES_CPP  = $(shell find . -type f -name '*.cpp')
 FILES_H    = $(shell find . -type f -name '*.h')
-FILES_O    = $(patsubst %.cpp, %.o, $(FILES_CPP))
+FILES_O    = $(foreach file, $(patsubst %.cpp, %.o, $(FILES_CPP)), obj/$(notdir $(file)))
 
 TO_COMPILE = $(FILES_CPP) $(FILES_H)
 
@@ -14,13 +14,18 @@ GCC_LINK_FLAGS = -Llib -lsfml-graphics -lsfml-system -lsfml-window
 all:	$(OUTFILE)
 
 # The compilation stage. This outputs object files.
-$(FILES_O):	$(TO_COMPILE)
-	-@mkdir obj
+$(FILES_O):	$(TO_COMPILE) obj/.dirstamp
 	@gcc -c $< -o obj/$(notdir $@) $(GCC_COMPILE_FLAGS)
 
 # Here we link our object files to the libraries in GCC_LINK_FLAGS and create a binary
-$(OUTFILE):	$(FILES_O)
-	@gcc $(TO_COMPILE) -o $(OUTFILE) $(GCC_LINK_FLAGS)
+$(OUTFILE):	$(FILES_O) obj/.dirstamp
+	@gcc $(FILES_O) -o $(OUTFILE) $(GCC_LINK_FLAGS)
+
+# For updating the temporary obj directory, which holds object files.
+# See http://stackoverflow.com/questions/3477418/suppress-make-rule-error-output.
+obj/.dirstamp:
+	@mkdir -p obj
+	@touch $@
 
 run:	$(OUTFILE)
 	@./$(OUTFILE)
