@@ -1,8 +1,6 @@
 engine
 ======
 
-A game engine, which will hopefully soon have a more creative repo name
-
-It shall be written primarily in C++, because why not? It shall be snazzy.
-
-What shall it do, you may ask? WELL, it's a game engine for 2D platform/adventure games. Hopefully an external library will be tied in to do the more intensive physics work.
+A game engine, which will hopefully soon have a more creative repo name. It should also be moved to Postcursor Laboratories.
+The intension is to write a snazzy little game engine that we can easily build more games off of, particularly 2D platform/adventure games.
+It uses SFML for multimedia, and will hopefully use another library for harder physics work.
