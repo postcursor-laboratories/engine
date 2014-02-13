@@ -4,8 +4,6 @@ FILES_CPP  = $(shell find . -type f -name '*.cpp')
 FILES_H    = $(shell find . -type f -name '*.h')
 FILES_O    = $(foreach file, $(patsubst %.cpp, %.o, $(FILES_CPP)), obj/$(notdir $(file)))
 
-TO_COMPILE = $(FILES_CPP) $(FILES_H)
-
 GCC_COMPILE_FLAGS = -Wall
 GCC_LINK_FLAGS = -Llib -lsfml-graphics -lsfml-system -lsfml-window
 
@@ -14,8 +12,11 @@ GCC_LINK_FLAGS = -Llib -lsfml-graphics -lsfml-system -lsfml-window
 all:	$(OUTFILE)
 
 # The compilation stage. This outputs object files.
-$(FILES_O):	$(TO_COMPILE) obj/.dirstamp
-	@gcc -c $< -o obj/$(notdir $@) $(GCC_COMPILE_FLAGS)
+#$(FILES_O):	$(FILES_CPP) obj/.dirstamp
+#	@gcc -c $(FILES_CPP) $(GCC_COMPILE_FLAGS)
+
+obj/%.o:	src/%.cpp src/%.h obj/.dirstamp
+	@gcc -c $< -o $@ $(GCC_COMPILE_FLAGS)
 
 # Here we link our object files to the libraries in GCC_LINK_FLAGS and create a binary
 $(OUTFILE):	$(FILES_O) obj/.dirstamp
