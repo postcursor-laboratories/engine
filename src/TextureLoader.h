@@ -15,8 +15,8 @@ class TextureLoader{
 public:
     static TextureLoader*getInstance();
 
-    void load();
-    sf::Texture getByName(std::string name);
+    void loadAll();
+    sf::Texture*getByName(std::string name);
     sf::Texture*get(size_t i);
 };
 

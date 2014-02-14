@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
+#include <stdio.h>
 #include "Main.h"
 #include "TextureLoader.h"
+#include "Utilities.h"
 
 const size_t Main::kWindowWidth  = 400;
 const size_t Main::kWindowHeight = 400;
@@ -19,7 +21,7 @@ int main(){
     bool green=true;
 
     TextureLoader*tl = TextureLoader::getInstance();    
-    tl->load();
+    tl->loadAll();
 
     // MAIN LOOP.
     while(window.isOpen()){

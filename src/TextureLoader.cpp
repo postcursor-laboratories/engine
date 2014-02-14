@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <dirent.h>
 #include "TextureLoader.h"
+#include "Utilities.h"
 
 TextureLoader*TextureLoader::_instance;
 TextureLoader::TextureLoader(){}
@@ -17,10 +18,12 @@ TextureLoader*TextureLoader::getInstance(){
 }
 
 // Loads all files in res as images.
-void TextureLoader::load(){
+void TextureLoader::loadAll(){
     DIR*dir;
     struct dirent*ent;
 
+    printf("Loading all images in res:\n");
+    
     size_t i=0;
     if((dir = opendir("res")) != NULL){
 	while((ent = readdir(dir)) != NULL){
@@ -28,30 +31,31 @@ void TextureLoader::load(){
 	    if(!std::string("..").compare(ent->d_name)) continue;
 
 	    std::string name = std::string(ent->d_name);
-	    if(name.length()<4 || name.substr(name.length()-4).compare(std::string(".png")))
-		continue;
 
+	    if(!Utilities::stringEndsWith(name,".png") &&
+	       !Utilities::stringEndsWith(name,".jpg"))
+		continue;
+	    
 	    std::string filename=std::string("res/")+std::string(ent->d_name);
 
-	    printf("Filename %s\n", filename.c_str());
-	    //_textures[i] = new sf::Texture();
+	    printf("  loading %s..", filename.c_str());
 	    
 	    sf::Texture*texture = new sf::Texture();
 	    _textures.push_back(texture);
 	    
 	    texture->loadFromFile(filename);
-	    printf("Created texture for %s\n", filename.c_str());
-
-	    //_textures[i++] = texture;
 	    i++;
+
+	    printf("done\n");
 	}
 	closedir(dir);
     }else return;
-    printf("Done loading!\n");
+    
+    printf("Loaded %lu image%s\n", i, i==1?"":"s");
 }
 
-sf::Texture TextureLoader::getByName(std::string name){
-    return *_textures[0];
+sf::Texture*TextureLoader::getByName(std::string name){
+    return _textures[0];
 }
 
 sf::Texture*TextureLoader::get(size_t i){
