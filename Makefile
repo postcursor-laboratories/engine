@@ -1,7 +1,7 @@
 OUTFILE = sfml-test
 
 FILES_CPP  = $(shell find . -type f -name '*.cpp')
-FILES_H    = $(shell find . -type f -name '*.h')
+FILES_H    = $(shell find . -type f -name '*.hpp')
 FILES_O    = $(foreach file, $(patsubst %.cpp, %.o, $(FILES_CPP)), obj/$(notdir $(file)))
 
 GCC_COMPILE_FLAGS = -Wall
@@ -15,7 +15,7 @@ all:	$(OUTFILE)
 #$(FILES_O):	$(FILES_CPP) obj/.dirstamp
 #	@gcc -c $(FILES_CPP) $(GCC_COMPILE_FLAGS)
 
-obj/%.o:	src/%.cpp src/%.h obj/.dirstamp
+obj/%.o:	src/%.cpp src/%.hpp obj/.dirstamp
 	@gcc -c $< -o $@ $(GCC_COMPILE_FLAGS)
 
 # Here we link our object files to the libraries in GCC_LINK_FLAGS and create a binary
