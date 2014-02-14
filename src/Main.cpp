@@ -1,8 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
-#include "Main.h"
-#include "TextureLoader.h"
-#include "Utilities.h"
+
+#include "Main.hpp"
+#include "TextureLoader.hpp"
+#include "Utilities.hpp"
 
 const size_t Main::kWindowWidth  = 400;
 const size_t Main::kWindowHeight = 400;

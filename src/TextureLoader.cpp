@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <dirent.h>
-#include "TextureLoader.h"
-#include "Utilities.h"
+#include "TextureLoader.hpp"
+#include "Utilities.hpp"
 
 TextureLoader*TextureLoader::_instance;
 TextureLoader::TextureLoader(){}

@@ -1,4 +1,4 @@
-#include "Utilities.h"
+#include "Utilities.hpp"
 
 bool Utilities::stringEndsWith(std::string s, std::string suffix){
     if(suffix.length() > s.length())
