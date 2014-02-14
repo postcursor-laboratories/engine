@@ -18,10 +18,10 @@ int main(){
     sf::CircleShape shape(Main::kWindowWidth/2);
     shape.setFillColor(sf::Color::Green);
 
-    bool green=true;
-
     TextureLoader*tl = TextureLoader::getInstance();    
     tl->loadAll();
+
+    bool green=true;
 
     // MAIN LOOP.
     while(window.isOpen()){
@@ -44,7 +44,7 @@ int main(){
 	shape.setFillColor(green ? sf::Color::Green : sf::Color::Blue);
 
 	sf::Sprite sprite;
-	sprite.setTexture(*tl->get(0));
+	sprite.setTexture(*tl->get("charlie80.png"));
 	
 	//================================
 	// Draw everything

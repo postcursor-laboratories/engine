@@ -41,11 +41,12 @@ void TextureLoader::loadAll(){
 	    printf("  loading %s..", filename.c_str());
 	    
 	    sf::Texture*texture = new sf::Texture();
-	    _textures.push_back(texture);
-	    
 	    texture->loadFromFile(filename);
-	    i++;
 
+	    //_textures.insert({filename, texture});
+	    _textures[name] = texture;
+	    
+	    i++;
 	    printf("done\n");
 	}
 	closedir(dir);
@@ -54,10 +55,6 @@ void TextureLoader::loadAll(){
     printf("Loaded %lu image%s\n", i, i==1?"":"s");
 }
 
-sf::Texture*TextureLoader::getByName(std::string name){
-    return _textures[0];
-}
-
-sf::Texture*TextureLoader::get(size_t i){
-    return _textures.at(i);
+sf::Texture*TextureLoader::get(std::string name){
+    return _textures.at(name);	// woot, operator overloading
 }

@@ -2,12 +2,11 @@
 #define TEXTURE_LOADER_H
 
 #include <SFML/Graphics.hpp>
-#include <vector>
+#include <map>
 
 class TextureLoader{
     static TextureLoader*_instance;
-
-    std::vector<sf::Texture*> _textures;
+    std::map<std::string,sf::Texture*> _textures;
 
     TextureLoader();
     ~TextureLoader();
@@ -15,9 +14,8 @@ class TextureLoader{
 public:
     static TextureLoader*getInstance();
 
-    void loadAll();
-    sf::Texture*getByName(std::string name);
-    sf::Texture*get(size_t i);
+    void loadAll();    
+    sf::Texture*get(std::string name);
 };
 
 #endif
