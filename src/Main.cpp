@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-
 #include "Main.h"
 #include "TextureLoader.h"
 
@@ -15,8 +14,14 @@ int main(){
     shape.setFillColor(sf::Color::Green);
 
     bool green=true;
-    
+
+    TextureLoader*tl = TextureLoader::getInstance();    
+    tl->load();
+
+    // MAIN LOOP.
     while(window.isOpen()){
+	//================================
+	// Handle events
 	sf::Event event;
 	while(window.pollEvent(event)){
 	    if(event.type == sf::Event::Closed)
@@ -29,10 +34,21 @@ int main(){
 		green = true;
 	}
 
+	//================================
+	// Set things up to be drawn
 	shape.setFillColor(green ? sf::Color::Green : sf::Color::Blue);
+
+	sf::Sprite sprite;
+	sprite.setTexture(TextureLoader::getInstance()->
+			  getByName(std::string("")));
 	
+	//================================
+	// Draw everything
 	window.clear();
+
 	window.draw(shape);
+	window.draw(sprite);
+	
 	window.display();
     }
 

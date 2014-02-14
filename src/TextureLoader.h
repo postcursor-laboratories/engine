@@ -5,12 +5,17 @@
 
 class TextureLoader{
     static TextureLoader*_instance;
-    sf::Texture*_textures;
+    
+    sf::Texture**_textures;
+    size_t _numTextures;
 
     TextureLoader();
 
 public:
     static TextureLoader*getInstance();
+
+    void load();
+    sf::Texture getByName(std::string name);
 };
 
 #endif
