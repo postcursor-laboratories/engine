@@ -39,8 +39,7 @@ int main(){
 	shape.setFillColor(green ? sf::Color::Green : sf::Color::Blue);
 
 	sf::Sprite sprite;
-	sprite.setTexture(TextureLoader::getInstance()->
-			  getByName(std::string("")));
+	sprite.setTexture(TextureLoader::getInstance()->getByName(std::string("")));
 	
 	//================================
 	// Draw everything
