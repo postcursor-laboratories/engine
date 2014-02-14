@@ -2,15 +2,18 @@
 #include "Main.h"
 #include "TextureLoader.h"
 
+const size_t Main::kWindowWidth  = 400;
+const size_t Main::kWindowHeight = 400;
+const std::string Main::kName = std::string("Test!");
+
 int main(){
-    sf::RenderWindow window(sf::VideoMode(MAIN_WINDOW_WIDTH,
-					  MAIN_WINDOW_HEIGHT), MAIN_NAME);
+    sf::RenderWindow window(sf::VideoMode(Main::kWindowWidth,Main::kWindowHeight),Main::kName);
 
     // Syncs framerate with monitor; should be ~60f/s.
     // This helps avoid frame tearing.
     window.setVerticalSyncEnabled(true);
 
-    sf::CircleShape shape(MAIN_WINDOW_WIDTH/2);
+    sf::CircleShape shape(Main::kWindowWidth/2);
     shape.setFillColor(sf::Color::Green);
 
     bool green=true;
@@ -39,7 +42,7 @@ int main(){
 	shape.setFillColor(green ? sf::Color::Green : sf::Color::Blue);
 
 	sf::Sprite sprite;
-	sprite.setTexture(TextureLoader::getInstance()->getByName(std::string("")));
+	sprite.setTexture(*tl->get(0));
 	
 	//================================
 	// Draw everything
