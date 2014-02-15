@@ -7,11 +7,12 @@ FILES_O    = $(foreach file, $(patsubst %.cpp, %.o, $(FILES_CPP)), obj/$(notdir 
 COMPILE_FLAGS = -Wall
 
 UNAME = $(shell uname)
+
 ifeq ($(UNAME), Linux)
-LINK_FLAGS = -Llib -lsfml-graphics -lsfml-system -lsfml-window
+LINK_FLAGS = -Llib/linux-amd64 -lsfml-graphics -lsfml-system -lsfml-window
 endif
 ifeq ($(UNAME), Darwin)
-LINK_FLAGS = -Llib -framework sfml-graphics -framework sfml-system -framework sfml-window
+LINK_FLAGS = -Llib/darwin-universal -framework sfml-graphics -framework sfml-system -framework sfml-window
 endif
 
 .PHONY: all clean
