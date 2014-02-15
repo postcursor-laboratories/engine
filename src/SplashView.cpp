@@ -29,9 +29,9 @@ SplashView::SplashView():
     _slogan.setFont(_slogFont);
     _slogan.setCharacterSize(20);
     _slogan.setColor(sf::Color::Black);
-
     _slogan.setPosition(Main::kWindowWidth/2-_slogan.getGlobalBounds().width/2,
 			Main::kWindowHeight*.75);
+    _slogan.setStyle(sf::Text::Italic);
 }
 
 void SplashView::pause(){}
