@@ -5,24 +5,38 @@
 #include "TextureLoader.hpp"
 #include "Utilities.hpp"
 
-const size_t Main::kWindowWidth  = 400;
-const size_t Main::kWindowHeight = 400;
-const std::string Main::kName = std::string("Test!");
+#include "View.hpp"
+#include "SplashView.hpp"
 
-int main(){
-    sf::RenderWindow window(sf::VideoMode(Main::kWindowWidth,Main::kWindowHeight),Main::kName);
+const size_t Main::kWindowWidth  = 800;
+const size_t Main::kWindowHeight = 600;
+const std::string Main::kName    = std::string("Test!");
+Main*Main::_instance = NULL;
+
+Main::Main():
+    _viewMode(SPLASH)
+{
+    _instance = this;
+}
+
+void Main::main(){
+    srand(time(NULL));
+    
+    sf::RenderWindow window(sf::VideoMode(kWindowWidth,kWindowHeight),kName);
 
     // Syncs framerate with monitor; should be ~60f/s.
     // This helps avoid frame tearing.
     window.setVerticalSyncEnabled(true);
 
-    sf::CircleShape shape(Main::kWindowWidth/2);
+    sf::CircleShape shape(kWindowWidth/2);
     shape.setFillColor(sf::Color::Green);
 
     TextureLoader*tl = TextureLoader::getInstance();    
     tl->loadAll();
 
     bool green=true;
+
+    SplashView splash = SplashView();
 
     // MAIN LOOP.
     while(window.isOpen()){
@@ -41,21 +55,37 @@ int main(){
 	}
 
 	//================================
-	// Set things up to be drawn
-	shape.setFillColor(green ? sf::Color::Green : sf::Color::Blue);
-
-	sf::Sprite sprite;
-	sprite.setTexture(*tl->get("charlie80.png"));
-	
-	//================================
 	// Draw everything
 	window.clear();
 
-	window.draw(shape);
-	window.draw(sprite);
+	// _viewMode may be changed; use view until window.display()
+	ViewMode view = _viewMode;
+	switch(view){
+	case TEST:{
+	    shape.setFillColor(green ? sf::Color::Green : sf::Color::Blue);
+	    
+	    sf::Sprite sprite;
+	    sprite.setTexture(*tl->get("charlie80.png"));
+
+	    window.draw(shape);
+	    window.draw(sprite);
+	    break;
+	}
+
+	case SPLASH:{
+	    splash.draw(&window);
+	    break;
+	}
+	}
 	
 	window.display();
     }
+}
 
-    return 0;
+void Main::setView(ViewMode v){ _viewMode = v; }
+Main*Main::getInstance(){ return _instance; }
+
+int main(){
+    Main m = Main();
+    m.main();
 }

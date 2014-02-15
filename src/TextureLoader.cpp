@@ -35,19 +35,16 @@ void TextureLoader::loadAll(){
 	    if(!Utilities::stringEndsWith(name,".png") &&
 	       !Utilities::stringEndsWith(name,".jpg"))
 		continue;
+
+	    sf::Texture*texture = new sf::Texture();
 	    
 	    std::string filename=std::string("res/")+std::string(ent->d_name);
-
-	    printf("  loading %s..", filename.c_str());
-	    
-	    sf::Texture*texture = new sf::Texture();
 	    texture->loadFromFile(filename);
 
-	    //_textures.insert({filename, texture});
 	    _textures[name] = texture;
 	    
+	    printf("  loaded %s\n", filename.c_str());
 	    i++;
-	    printf("done\n");
 	}
 	closedir(dir);
     }else return;
@@ -56,5 +53,8 @@ void TextureLoader::loadAll(){
 }
 
 sf::Texture*TextureLoader::get(std::string name){
-    return _textures.at(name);	// woot, operator overloading
+    if(_textures.find(name) != _textures.end())
+	return _textures.at(name); // woot, operator overloading
+    else
+	return _textures.at("trollface.jpg"); // to notify the user of an error
 }
