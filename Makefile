@@ -6,12 +6,16 @@ FILES_O    = $(foreach file, $(patsubst %.cpp, %.o, $(FILES_CPP)), obj/$(notdir 
 
 COMPILE_FLAGS = -Wall
 
-UNAME = $(shell uname)
-
-ifeq ($(UNAME), Linux)
+# Set up linker flags
+ifeq ($(shell uname), Linux)
+ifeq ($(shell uname -m), x86)
 LINK_FLAGS = -Llib/linux-amd64 -lsfml-graphics -lsfml-system -lsfml-window
 endif
-ifeq ($(UNAME), Darwin)
+ifeq ($(shell uname -m), x86)
+LINK_FLAGS = -Llib/linux-amd64 -lsfml-graphics -lsfml-system -lsfml-window
+endif
+endif
+ifeq ($(shell uname), Darwin)
 LINK_FLAGS = -Llib/darwin-universal -framework sfml-graphics -framework sfml-system -framework sfml-window
 endif
 
