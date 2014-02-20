@@ -11,7 +11,7 @@ ifeq ($(shell uname), Linux)
 ifeq ($(shell uname -m), x86)
 LINK_FLAGS = -Llib/linux-amd64 -lsfml-graphics -lsfml-system -lsfml-window
 endif
-ifeq ($(shell uname -m), x86)
+ifeq ($(shell uname -m), x86_64)
 LINK_FLAGS = -Llib/linux-amd64 -lsfml-graphics -lsfml-system -lsfml-window
 endif
 endif
