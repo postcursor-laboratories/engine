@@ -44,14 +44,22 @@ void Main::main(){
 	// Handle events
 	sf::Event event;
 	while(window.pollEvent(event)){
-	    if(event.type == sf::Event::Closed)
+	    switch(event.type){
+	    case sf::Event::Closed:
 		window.close();
-	    
-	    if (event.type == sf::Event::LostFocus)
-		green = false;
+		break;
 
-	    if (event.type == sf::Event::GainedFocus)
+	    case sf::Event::LostFocus:
+		green = false;
+		break;
+
+	    case sf::Event::GainedFocus:
 		green = true;
+		break;
+
+	    default:
+		break;
+	    }
 	}
 
 	//================================
