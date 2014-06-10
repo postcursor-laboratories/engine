@@ -19,42 +19,48 @@ void Test3DView::draw(sf::RenderTarget*rt){
     glBegin(GL_QUADS);
     {
 	float size = 50;
-	
+
+	// BLUE
 	glColor3f(0,0,1);
 	glVertex3f(-size,-size,-size);
 	glVertex3f(-size, size,-size);
 	glVertex3f( size, size,-size);
 	glVertex3f( size,-size,-size);
 
+	// GREEN
 	glColor3f(0,1,0);
-	glVertex3f(-size,-size, size);
-	glVertex3f(-size, size, size);
-	glVertex3f( size, size, size);
 	glVertex3f( size,-size, size);
-
-	glColor3f(0,1,1);
-	glVertex3f(-size,-size,-size);
-	glVertex3f(-size, size,-size);
+	glVertex3f( size, size, size);
 	glVertex3f(-size, size, size);
 	glVertex3f(-size,-size, size);
 
+	// BLUE-GREEN
+	glColor3f(0,1,1);
+	glVertex3f(-size,-size, size);
+	glVertex3f(-size, size, size);
+	glVertex3f(-size, size,-size);
+	glVertex3f(-size,-size,-size);
+
+	// RED
 	glColor3f(1,0,0);
 	glVertex3f( size,-size,-size);
 	glVertex3f( size, size,-size);
 	glVertex3f( size, size, size);
 	glVertex3f( size,-size, size);
 
+	// PURPLE
 	glColor3f(1,0,1);
 	glVertex3f(-size,-size, size);
 	glVertex3f(-size,-size,-size);
 	glVertex3f( size,-size,-size);
 	glVertex3f( size,-size, size);
 
+	// YELLOW
 	glColor3f(1,1,0);
-	glVertex3f(-size, size, size);
-	glVertex3f(-size, size,-size);
-	glVertex3f( size, size,-size);
 	glVertex3f( size, size, size);
+	glVertex3f( size, size,-size);
+	glVertex3f(-size, size,-size);
+	glVertex3f(-size, size, size);
     }
     glEnd();
 }

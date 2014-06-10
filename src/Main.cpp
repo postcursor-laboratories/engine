@@ -49,13 +49,15 @@ void Main::main(){
     glClearColor(0.f,0.f,0.f,0.f);
 
     glEnable(GL_DEPTH_TEST);	// set up Z-buffer read/write
+    glEnable(GL_CULL_FACE);
+    glDepthFunc(GL_LEQUAL);
     glDepthMask(GL_TRUE);
 
     glMatrixMode(GL_PROJECTION); // set up a perspective projection
     glLoadIdentity();
     gluPerspective(90.f, 1.f, 1.f, 500.f);
 
-    glShadeModel(GL_SMOOTH);
+    //glShadeModel(GL_SMOOTH);
     
     // MAIN LOOP.
     while(window.isOpen()){
