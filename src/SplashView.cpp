@@ -42,6 +42,7 @@ void SplashView::unpause(){
 }
 
 void SplashView::draw(sf::RenderTarget*rt){
+    rt->pushGLStates();
     _milliseconds += _clock.restart().asMilliseconds();
 
     //================================
@@ -75,4 +76,5 @@ void SplashView::draw(sf::RenderTarget*rt){
     rt->clear(sf::Color((int)(alpha*255),(int)(alpha*255),(int)(alpha*255)));
     rt->draw(sprite);
     rt->draw(_slogan);
+    rt->popGLStates();
 }

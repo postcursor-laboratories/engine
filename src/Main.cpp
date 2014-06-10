@@ -16,8 +16,14 @@ const size_t Main::kWindowHeight = 600;
 const std::string Main::kName    = std::string("Test!");
 Main*Main::_instance = NULL;
 
+View*_views[] = {
+    NULL,
+    new Test3DView(),
+    new SplashView()
+};
+
 Main::Main():
-    _viewMode(TEST3D)
+    _viewMode(SPLASH)
 {
     printf("Initializing Main. Starting with view %d.\n", _viewMode);
     _instance = this;
@@ -40,11 +46,7 @@ void Main::main(){
 
     bool green=true;
 
-    SplashView splash = SplashView();
-
     // Initialize 3D stuff!
-    Test3DView test3d = Test3DView();
-
     glClearDepth(1.f);		// set color and depth clear value
     glClearColor(0.f,0.f,0.f,0.f);
 
@@ -57,7 +59,12 @@ void Main::main(){
     glLoadIdentity();
     gluPerspective(90.f, 1.f, 1.f, 500.f);
 
+    //glEnable(GL_LIGHTING);
+    //glEnable(GL_LIGHT0);
     //glShadeModel(GL_SMOOTH);
+
+    if(_views[_viewMode])
+	_views[_viewMode]->unpause();
     
     // MAIN LOOP.
     while(window.isOpen()){
@@ -106,15 +113,10 @@ void Main::main(){
 	    break;
 	}
 
-	case TEST3D:{
-	    test3d.draw(&window);
+	case SPLASH:
+	case TEST3D:
+	    _views[view]->draw(&window);
 	    break;
-	}
-	    
-	case SPLASH:{
-	    splash.draw(&window);
-	    break;
-	}
 	}
 	
 	window.display();
@@ -122,8 +124,14 @@ void Main::main(){
 }
 
 void Main::setView(ViewMode v){
+    if(_views[_viewMode])
+	_views[_viewMode]->pause();
+    
     _viewMode = v;
-    printf("Set view mode to %d\n", v);
+    printf("Set view mode to %d\n", _viewMode);
+    
+    if(_views[_viewMode])
+	_views[_viewMode]->unpause();
 }
 
 Main*Main::getInstance(){ return _instance; }
