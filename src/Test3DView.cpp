@@ -16,38 +16,45 @@ void Test3DView::draw(sf::RenderTarget*rt){
     glRotatef(clock.getElapsedTime().asSeconds()*30, 0, 1, 0);
     glRotatef(clock.getElapsedTime().asSeconds()*90, 0, 0, 1);
 
-    glColor3f(0,0,1);
     glBegin(GL_QUADS);
     {
-	glVertex3f(-50,-50,-50);
-	glVertex3f(-50, 50,-50);
-	glVertex3f( 50, 50,-50);
-	glVertex3f( 50,-50,-50);
+	float size = 50;
+	
+	glColor3f(0,0,1);
+	glVertex3f(-size,-size,-size);
+	glVertex3f(-size, size,-size);
+	glVertex3f( size, size,-size);
+	glVertex3f( size,-size,-size);
 
-	glVertex3f(-50,-50, 50);
-	glVertex3f(-50, 50, 50);
-	glVertex3f( 50, 50, 50);
-	glVertex3f( 50,-50, 50);
+	glColor3f(0,1,0);
+	glVertex3f(-size,-size, size);
+	glVertex3f(-size, size, size);
+	glVertex3f( size, size, size);
+	glVertex3f( size,-size, size);
 
-	glVertex3f(-50,-50,-50);
-	glVertex3f(-50, 50,-50);
-	glVertex3f(-50, 50, 50);
-	glVertex3f(-50,-50, 50);
+	glColor3f(0,1,1);
+	glVertex3f(-size,-size,-size);
+	glVertex3f(-size, size,-size);
+	glVertex3f(-size, size, size);
+	glVertex3f(-size,-size, size);
 
-	glVertex3f( 50,-50,-50);
-	glVertex3f( 50, 50,-50);
-	glVertex3f( 50, 50, 50);
-	glVertex3f( 50,-50, 50);
+	glColor3f(1,0,0);
+	glVertex3f( size,-size,-size);
+	glVertex3f( size, size,-size);
+	glVertex3f( size, size, size);
+	glVertex3f( size,-size, size);
 
-	glVertex3f(-50,-50, 50);
-	glVertex3f(-50,-50,-50);
-	glVertex3f( 50,-50,-50);
-	glVertex3f( 50,-50, 50);
+	glColor3f(1,0,1);
+	glVertex3f(-size,-size, size);
+	glVertex3f(-size,-size,-size);
+	glVertex3f( size,-size,-size);
+	glVertex3f( size,-size, size);
 
-	glVertex3f(-50, 50, 50);
-	glVertex3f(-50, 50,-50);
-	glVertex3f( 50, 50,-50);
-	glVertex3f( 50, 50, 50);
+	glColor3f(1,1,0);
+	glVertex3f(-size, size, size);
+	glVertex3f(-size, size,-size);
+	glVertex3f( size, size,-size);
+	glVertex3f( size, size, size);
     }
     glEnd();
 }
