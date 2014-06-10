@@ -1,4 +1,6 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/OpenGL.hpp>
 #include <stdio.h>
 
 #include "Main.hpp"
@@ -7,6 +9,7 @@
 
 #include "View.hpp"
 #include "SplashView.hpp"
+#include "Test3DView.hpp"
 
 const size_t Main::kWindowWidth  = 800;
 const size_t Main::kWindowHeight = 600;
@@ -14,8 +17,9 @@ const std::string Main::kName    = std::string("Test!");
 Main*Main::_instance = NULL;
 
 Main::Main():
-    _viewMode(SPLASH)
+    _viewMode(TEST3D)
 {
+    printf("Initializing Main. Starting with view %d.\n", _viewMode);
     _instance = this;
 }
 
@@ -38,6 +42,21 @@ void Main::main(){
 
     SplashView splash = SplashView();
 
+    // Initialize 3D stuff!
+    Test3DView test3d = Test3DView();
+
+    glClearDepth(1.f);		// set color and depth clear value
+    glClearColor(0.f,0.f,0.f,0.f);
+
+    glEnable(GL_DEPTH_TEST);	// set up Z-buffer read/write
+    glDepthMask(GL_TRUE);
+
+    glMatrixMode(GL_PROJECTION); // set up a perspective projection
+    glLoadIdentity();
+    gluPerspective(90.f, 1.f, 1.f, 500.f);
+
+    glShadeModel(GL_SMOOTH);
+    
     // MAIN LOOP.
     while(window.isOpen()){
 	//================================
@@ -57,6 +76,10 @@ void Main::main(){
 		green = true;
 		break;
 
+	    case sf::Event::Resized:
+		glViewport(0,0,event.size.width,event.size.height);
+		break;
+		
 	    default:
 		break;
 	    }
@@ -65,6 +88,7 @@ void Main::main(){
 	//================================
 	// Draw everything
 	window.clear();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// _viewMode may be changed; use view until window.display()
 	ViewMode view = _viewMode;
@@ -80,6 +104,11 @@ void Main::main(){
 	    break;
 	}
 
+	case TEST3D:{
+	    test3d.draw(&window);
+	    break;
+	}
+	    
 	case SPLASH:{
 	    splash.draw(&window);
 	    break;
@@ -90,10 +119,15 @@ void Main::main(){
     }
 }
 
-void Main::setView(ViewMode v){ _viewMode = v; }
+void Main::setView(ViewMode v){
+    _viewMode = v;
+    printf("Set view mode to %d\n", v);
+}
+
 Main*Main::getInstance(){ return _instance; }
 
-int main(){
+int main(int argc, char*argv[]){
     Main m = Main();
     m.main();
+    return 0;
 }

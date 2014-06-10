@@ -1,7 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-enum ViewMode{ TEST, SPLASH }; // add views here as needed
+enum ViewMode{ TEST, TEST3D, SPLASH }; // add views here as needed
 
 class Main{
     static Main*_instance;

@@ -59,7 +59,7 @@ void SplashView::draw(sf::RenderTarget*rt){
 	alpha = 0;
     else{
 	alpha = 0;
-	Main::getInstance()->setView(TEST);
+	Main::getInstance()->setView(TEST3D);
     }
 
     sf::Texture*texture = TextureLoader::getInstance()
