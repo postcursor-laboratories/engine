@@ -6,6 +6,15 @@
 
 Test3DView::Test3DView(){}
 
+// Calls to glColor3f no longer do anything when lighting is enabled.
+// You have to set material properties. This does BOTH, for MAXIMUM
+// COLORNESS and EXTREME FABULOSITY
+#define COLOR_LIGHTING(r,g,b) {				\
+	float color[] = { r, g, b, 1 };			\
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, color);	\
+	glColor3f(r,g,b);				\
+    }
+
 void Test3DView::draw(sf::RenderTarget*rt){
     static sf::Clock clock;
     
@@ -27,15 +36,15 @@ void Test3DView::draw(sf::RenderTarget*rt){
     // Draw axes.
     glBegin(GL_LINES);
     {
-	glColor3f (1,   0,   0);
+	COLOR_LIGHTING(1,0,0);
 	glVertex3f(0,   0,   0);
 	glVertex3f(100, 0,   0);
 
-    	glColor3f (0,   1,   0);
+    	COLOR_LIGHTING(0,1,0);
 	glVertex3f(0,   0,   0);
 	glVertex3f(0, 100,   0);
 
-    	glColor3f (0,   0,   1);
+    	COLOR_LIGHTING(0,0,1);
 	glVertex3f(0,   0,   0);
 	glVertex3f(0,   0, 100);
     }
@@ -51,9 +60,9 @@ void Test3DView::draw(sf::RenderTarget*rt){
     glBegin(GL_QUADS);
     {
 	float size = 50;
-
+	
 	// BLUE
-	glColor3f(0,0,1);
+	COLOR_LIGHTING(0,0,1);
 	glNormal3f(0,0,-1);
 	glVertex3f(-size,-size,-size);
 	glVertex3f(-size, size,-size);
@@ -61,7 +70,7 @@ void Test3DView::draw(sf::RenderTarget*rt){
 	glVertex3f( size,-size,-size);
 
 	// GREEN
-	glColor3f(0,1,0);
+	COLOR_LIGHTING(0,1,0);
 	glNormal3f(0,0,1);
 	glVertex3f( size,-size, size);
 	glVertex3f( size, size, size);
@@ -69,7 +78,7 @@ void Test3DView::draw(sf::RenderTarget*rt){
 	glVertex3f(-size,-size, size);
 
 	// BLUE-GREEN
-	glColor3f(0,1,1);
+	COLOR_LIGHTING(0,1,1);
 	glNormal3d(-1,0,0);
 	glVertex3f(-size,-size, size);
 	glVertex3f(-size, size, size);
@@ -77,7 +86,7 @@ void Test3DView::draw(sf::RenderTarget*rt){
 	glVertex3f(-size,-size,-size);
 
 	// RED
-	glColor3f(1,0,0);
+	COLOR_LIGHTING(1,0,0);
 	glNormal3d(1,0,0);
 	glVertex3f( size,-size,-size);
 	glVertex3f( size, size,-size);
@@ -85,7 +94,7 @@ void Test3DView::draw(sf::RenderTarget*rt){
 	glVertex3f( size,-size, size);
 
 	// PURPLE
-	glColor3f(1,0,1);
+	COLOR_LIGHTING(1,0,1);
 	glNormal3d(0,-1,0);
 	glVertex3f(-size,-size, size);
 	glVertex3f(-size,-size,-size);
@@ -93,7 +102,7 @@ void Test3DView::draw(sf::RenderTarget*rt){
 	glVertex3f( size,-size, size);
 
 	// YELLOW
-	glColor3f(1,1,0);
+	COLOR_LIGHTING(1,1,0);
 	glNormal3d(0,1,0);
 	glVertex3f( size, size, size);
 	glVertex3f( size, size,-size);
