@@ -32,7 +32,12 @@ void Test3DView::draw(sf::RenderTarget*rt){
 
     float pos[] = { 100, 100, 100, 1 };
     glLightfv(GL_LIGHT0, GL_POSITION, pos);
-    //float cutoff[] = { 45 };
+
+    // OpenGL seems to do spotlight cutoffs on a per-polygon basis, so having a narrow spotlight will
+    // not have a circle of light on the cube; it'll make the triangles in the cube light up and go
+    // black in a weird ugly manner. I think this may only be useful and pretty for things with very
+    // high polygon counts.
+    //float cutoff[] = { 30 };
     //glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, cutoff);
 
     // Draw axes.
@@ -150,7 +155,7 @@ void Test3DView::draw(sf::RenderTarget*rt){
 	glTranslatef(Main::kWindowWidth-graphW,0,0);
 
 	// draw background
-	glColor4f(1,0,0,.2);
+	glColor4f(1,0,0,.4);
 	glBegin(GL_QUADS);
 	{
 	    glVertex2f(0,0);
@@ -162,7 +167,7 @@ void Test3DView::draw(sf::RenderTarget*rt){
 
 	// draw data
 	glBegin(GL_LINES);
-	glColor4f(0,0,1,.4);
+	glColor4f(0,0,1,.6);
 	for(int i=0; i<graphW; i++){
 	    int index = (pastFPSsIndex+i+1)%graphW;
 	    glVertex2f(i,graphH);

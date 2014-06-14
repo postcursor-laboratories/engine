@@ -11,8 +11,8 @@
 #include "SplashView.hpp"
 #include "Test3DView.hpp"
 
-const size_t Main::kWindowWidth  = 800;
-const size_t Main::kWindowHeight = 600;
+const size_t Main::kWindowWidth  = 1000;
+const size_t Main::kWindowHeight = 800;
 const std::string Main::kName    = std::string("Test!");
 Main*Main::_instance = NULL;
 

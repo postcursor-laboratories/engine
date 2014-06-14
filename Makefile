@@ -4,7 +4,7 @@ FILES_CPP  = $(shell find . -type f -name '*.cpp')
 FILES_H    = $(shell find . -type f -name '*.hpp')
 FILES_O    = $(foreach file, $(patsubst %.cpp, %.o, $(FILES_CPP)), obj/$(notdir $(file)))
 
-COMPILE_FLAGS = -Wall
+COMPILE_FLAGS = -Wall -std=gnu++11
 
 # Set up linker flags
 ifeq ($(shell uname), Linux)
