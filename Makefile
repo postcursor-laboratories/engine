@@ -1,15 +1,16 @@
 OUTFILE = sfml-test
 
-FILES_CPP  = $(shell find . -type f -name '*.cpp')
-FILES_H    = $(shell find . -type f -name '*.hpp')
-FILES_O    = $(foreach file, $(patsubst %.cpp, %.o, $(FILES_CPP)), obj/$(notdir $(file)))
+FILES_CPP  = $(shell find src -type f -name '*.cpp')
+FILES_H    = $(shell find src -type f -name '*.hpp')
+FILES_O    = $(foreach file, $(FILES_CPP), $(patsubst src/%, obj/%, $(patsubst %.cpp, %.o, $(file))))
+#FILES_O    = $(foreach file, $(patsubst %.cpp, %.o, $(FILES_CPP)), obj/$(notdir $(file)))
 
-COMPILE_FLAGS = -Wall -std=gnu++11
+COMPILE_FLAGS = -Wall -std=c++11
 
 # Set up linker flags
 ifeq ($(shell uname), Linux)
 ifeq ($(shell uname -m), x86)
-LINK_FLAGS = -Llib/linux-amd64 -lsfml-graphics -lsfml-system -lsfml-window
+LINK_FLAGS = -Llib/linux-i386 -lsfml-graphics -lsfml-system -lsfml-window
 endif
 ifeq ($(shell uname -m), x86_64)
 LINK_FLAGS = -Llib/linux-amd64 -lsfml-graphics -lsfml-system -lsfml-window
@@ -28,6 +29,7 @@ all:	$(OUTFILE)
 #	g++ -c $(FILES_CPP) $(COMPILE_FLAGS)
 
 obj/%.o:	src/%.cpp src/%.hpp obj/.dirstamp
+	-mkdir -p $(dir $@)
 	g++ -c $< -o $@ $(COMPILE_FLAGS)
 
 # Here we link our object files to the libraries in LINK_FLAGS and create a binary

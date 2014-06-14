@@ -9,8 +9,8 @@
 
 #include "View.hpp"
 #include "SplashView.hpp"
-#include "Test3DView.hpp"
 #include "FontManager.hpp"
+#include "Test3D/Test3DView.hpp"
 
 const size_t Main::kWindowWidth  = 1000;
 const size_t Main::kWindowHeight = 800;
