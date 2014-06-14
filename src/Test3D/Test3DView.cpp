@@ -4,8 +4,8 @@
 #include <stdio.h>
 
 #include "Test3DView.hpp"
-#include "FontManager.hpp"
-#include "Main.hpp"
+#include "../FontManager.hpp"
+#include "../Main.hpp"
 
 Test3DView::Test3DView(){}
 

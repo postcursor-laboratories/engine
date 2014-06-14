@@ -1,7 +1,7 @@
 #ifndef TEST3DVIEW_H
 #define TEST3DVIEW_H
 
-#include "View.hpp"
+#include "../View.hpp"
 
 class Test3DView : public View{
 
