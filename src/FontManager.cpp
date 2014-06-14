@@ -21,9 +21,10 @@ sf::Font*FontManager::get(const char*name){
 	return _fonts[sname];
 
     // otherwise, load the font from file
+    printf("FontManager: Loading font `%s' from disk\n", name);
     sf::Font*ret = new sf::Font();
     if(!ret->loadFromFile(name)){
-	printf("WARNING: Couldn't load font `%s'!\n", name);
+	printf("FontManager: WARNING: Couldn't load font `%s'!\n", name);
 	delete ret;
 	return NULL;
     }

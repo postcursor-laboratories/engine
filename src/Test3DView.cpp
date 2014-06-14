@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "Test3DView.hpp"
+#include "FontManager.hpp"
 #include "Main.hpp"
 
 Test3DView::Test3DView(){}
@@ -191,15 +192,10 @@ void Test3DView::draw(sf::RenderTarget*rt){
     rt->pushGLStates();
     rt->resetGLStates();
     
-    sf::Font font;
-    if(!font.loadFromFile("res/lucida-console.ttf")){
-	printf("Warning: couldn't load font for Test3DView\n");
-    }
-
     // draw current fps
     char s[9];
     snprintf(s, 8, "%0.1ffps", fps);
-    sf::Text text(s, font, 12);
+    sf::Text text(s, *FontManager::getInstance()->get("res/lucida-console.ttf"), 12);
     text.setPosition(Main::kWindowWidth-50, 0);
     rt->draw(text);
     

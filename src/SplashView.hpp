@@ -8,7 +8,6 @@ class SplashView : public View{
     size_t _milliseconds;
     
     sf::Text _slogan;
-    sf::Font _slogFont;
     
 public:
     SplashView();

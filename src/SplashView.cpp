@@ -6,14 +6,12 @@
 
 #include "SplashView.hpp"
 #include "TextureLoader.hpp"
+#include "FontManager.hpp"
 #include "Main.hpp"
 
 SplashView::SplashView():
     _milliseconds(0)
 {
-    if(!_slogFont.loadFromFile("res/lucida-console.ttf"))
-	printf("Warning: couldn't load font lucida-console.ttf!\n");
-
     std::vector<std::string> slogans;
     std::ifstream in("res/slogans.txt");
 
@@ -26,7 +24,7 @@ SplashView::SplashView():
 	slogans.at(rand()%slogans.size()) : "Filesystem? More like Failsystem!";
     
     _slogan.setString(sloganChoice);
-    _slogan.setFont(_slogFont);
+    _slogan.setFont(*FontManager::getInstance()->get("res/lucida-console.ttf"));
     _slogan.setCharacterSize(20);
     _slogan.setColor(sf::Color::Black);
     _slogan.setPosition(Main::kWindowWidth/2-_slogan.getGlobalBounds().width/2,

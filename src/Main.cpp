@@ -10,6 +10,7 @@
 #include "View.hpp"
 #include "SplashView.hpp"
 #include "Test3DView.hpp"
+#include "FontManager.hpp"
 
 const size_t Main::kWindowWidth  = 1000;
 const size_t Main::kWindowHeight = 800;
@@ -23,10 +24,13 @@ View*_views[] = {
 };
 
 Main::Main():
-    _viewMode(TEST3D)
+    _viewMode(SPLASH)
 {
     printf("Initializing Main. Starting with view %d.\n", _viewMode);
     _instance = this;
+
+    // Initialize all singletons
+    FontManager::getInstance();
 }
 
 void Main::main(){
