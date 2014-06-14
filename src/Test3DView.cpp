@@ -12,10 +12,24 @@ void Test3DView::draw(sf::RenderTarget*rt){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glTranslatef(0.f, 0.f, -200.f);
+
+    // rotate world by 90 degrees widdershins about k hat
+    //glRotatef(90,0,0,1);
+
+    glRotatef(-45,1,0,0);
+    glRotatef(-135,0,0,1);
+
+    float pos[] = { 100, 100, 100, 1 };
+    glLightfv(GL_LIGHT0, GL_POSITION, pos);
+    //float cutoff[] = { 45 };
+    //glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, cutoff);
+
+    // Enter box coordinates
+    glPushMatrix();    
     glRotatef(clock.getElapsedTime().asSeconds()*50, 1, 0, 0);
     glRotatef(clock.getElapsedTime().asSeconds()*30, 0, 1, 0);
     glRotatef(clock.getElapsedTime().asSeconds()*90, 0, 0, 1);
-
+    
     glBegin(GL_QUADS);
     {
 	float size = 50;
@@ -63,6 +77,28 @@ void Test3DView::draw(sf::RenderTarget*rt){
 	glVertex3f(-size, size, size);
     }
     glEnd();
+
+    // Leave box coordinates
+    glPopMatrix();
+
+    // Draw axes.
+    glBegin(GL_LINES);
+    {
+	glColor3f (1,   0,   0);
+	glVertex3f(0,   0,   0);
+	glVertex3f(100, 0,   0);
+
+    	glColor3f (0,   1,   0);
+	glVertex3f(0,   0,   0);
+	glVertex3f(0, 100,   0);
+
+    	glColor3f (0,   0,   1);
+	glVertex3f(0,   0,   0);
+	glVertex3f(0,   0, 100);
+    }
+    glEnd();
+
+    glFlush();
 }
 
 void Test3DView::pause(){}

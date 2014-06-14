@@ -23,7 +23,7 @@ View*_views[] = {
 };
 
 Main::Main():
-    _viewMode(SPLASH)
+    _viewMode(TEST3D)
 {
     printf("Initializing Main. Starting with view %d.\n", _viewMode);
     _instance = this;
@@ -46,7 +46,7 @@ void Main::main(){
 
     bool green=true;
 
-    // Initialize 3D stuff!
+    // --------------------------------------------- initialize OpenGL
     glClearDepth(1.f);		// set color and depth clear value
     glClearColor(0.f,0.f,0.f,0.f);
 
@@ -54,14 +54,14 @@ void Main::main(){
     glEnable(GL_CULL_FACE);
     glDepthFunc(GL_LEQUAL);
     glDepthMask(GL_TRUE);
-
+    
     glMatrixMode(GL_PROJECTION); // set up a perspective projection
     glLoadIdentity();
     gluPerspective(90.f, 1.f, 1.f, 500.f);
 
-    //glEnable(GL_LIGHTING);
-    //glEnable(GL_LIGHT0);
-    //glShadeModel(GL_SMOOTH);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    // ---------------------------------------------------------------
 
     if(_views[_viewMode])
 	_views[_viewMode]->unpause();
