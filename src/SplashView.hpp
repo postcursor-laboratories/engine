@@ -13,8 +13,9 @@ public:
     SplashView();
     
     void draw(sf::RenderTarget*rt);
+    void update();
+    
     void unpause();
-
     void pause();
 };
 

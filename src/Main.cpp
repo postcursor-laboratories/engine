@@ -119,6 +119,7 @@ void Main::main(){
 
 	case SPLASH:
 	case TEST3D:
+	    _views[view]->update();
 	    _views[view]->draw(&window);
 	    break;
 	}

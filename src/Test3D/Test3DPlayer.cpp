@@ -12,3 +12,11 @@ void Test3DPlayer::performGLTransformations(){
     glRotatef(180+_phi,1,-1,0);
     glTranslatef(_x, _y, _z);
 }
+
+void Test3DPlayer::move(double dx, double dy, double dz, double dphi, double dtheta){
+    _x+=dx;
+    _y+=dy;
+    _z+=dz;
+    _phi+=dphi;
+    _theta+=dtheta;
+}

@@ -21,6 +21,30 @@ Test3DView::Test3DView(){
 	glColor3f(r,g,b);				\
     }
 
+void Test3DView::update(){
+    // update player's coordinates
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	_player->move(1,0,0,0,0);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	_player->move(-1,0,0,0,0);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	_player->move(0,1,0,0,0);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	_player->move(0,-1,0,0,0);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	_player->move(0,0,1,0,0);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	_player->move(0,0,-1,0,0);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	_player->move(0,0,0,1,0);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+	_player->move(0,0,0,-1,0);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+	_player->move(0,0,0,0,1);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))
+	_player->move(0,0,0,0,-1);
+}
+
 void Test3DView::draw(sf::RenderTarget*rt){
     static sf::Clock clock;
     

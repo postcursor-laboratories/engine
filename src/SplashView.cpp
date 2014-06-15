@@ -39,9 +39,11 @@ void SplashView::unpause(){
     _clock.restart();
 }
 
+void SplashView::update(){}
+
 void SplashView::draw(sf::RenderTarget*rt){
     rt->pushGLStates();
-    _milliseconds += _clock.restart().asMilliseconds();
+    _milliseconds += _clock.restart().asMilliseconds();    
 
     //================================
     // Deal with logo

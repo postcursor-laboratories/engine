@@ -11,7 +11,9 @@ class Test3DPlayer : public Player{
 public:
     ~Test3DPlayer();
     Test3DPlayer(double x, double y, double z, double phi, double theta);
+ 
     void performGLTransformations();
+    void move(double dx, double dy, double dz, double dphi, double dtheta);
 };
 
 #endif

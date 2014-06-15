@@ -10,6 +10,7 @@ class Test3DView : public View{
 public:
     Test3DView();
 
+    void update();
     void draw(sf::RenderTarget*rt);
 
     void unpause();
