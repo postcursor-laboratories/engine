@@ -4,10 +4,13 @@
 #include <stdio.h>
 
 #include "Test3DView.hpp"
+#include "Test3DPlayer.hpp"
 #include "../FontManager.hpp"
 #include "../Main.hpp"
 
-Test3DView::Test3DView(){}
+Test3DView::Test3DView(){
+    _player = new Test3DPlayer(0,0,-200,180,0);
+}
 
 // Calls to glColor3f no longer do anything when lighting is enabled.
 // You have to set material properties. This does BOTH, for MAXIMUM
@@ -23,13 +26,15 @@ void Test3DView::draw(sf::RenderTarget*rt){
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef(0.f, 0.f, -200.f);
+
+    // Translate the world (so, position the camera)
+    _player->performGLTransformations();
 
     // rotate world by 90 degrees widdershins about k hat
     //glRotatef(90,0,0,1);
 
-    glRotatef(-45,1,0,0);
-    glRotatef(-135,0,0,1);
+    //glRotatef(-45,1,0,0);
+    //glRotatef(-135,0,0,1);
 
     float pos[] = { 100, 100, 100, 1 };
     glLightfv(GL_LIGHT0, GL_POSITION, pos);

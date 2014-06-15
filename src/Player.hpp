@@ -3,9 +3,12 @@
 
 class Player{
 public:
-    virtual ~Player(){}
+    ~Player(){}
+    Player(){}
 
-    virtual void performGLTransformations();
+
+    // This function is responsible for moving the "camera" to prepare for each frame
+    virtual void performGLTransformations(){};
 };
 
 #endif

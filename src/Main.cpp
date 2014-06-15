@@ -24,7 +24,7 @@ View*_views[] = {
 };
 
 Main::Main():
-    _viewMode(SPLASH)
+    _viewMode(TEST3D)
 {
     printf("Initializing Main. Starting with view %d.\n", _viewMode);
     _instance = this;
