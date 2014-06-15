@@ -5,15 +5,14 @@
 
 class Test3DPlayer : public Player{
     double _x, _y, _z;		// translation
-    double _phi, _theta; 	// rotation, in degrees.
-    // phi is measured from the +Z axis ("up"), and theta from +X CCW.
+    double _xrot, _yrot, _zrot; // rotation, in degrees.
     
 public:
     ~Test3DPlayer();
-    Test3DPlayer(double x, double y, double z, double phi, double theta);
+    Test3DPlayer(double x, double y, double z, double xrot, double yrot, double zrot);
  
     void performGLTransformations();
-    void move(double dx, double dy, double dz, double dphi, double dtheta);
+    void move(double dx, double dy, double dz, double dxrot, double dyrot, double dzrot);
 };
 
 #endif
