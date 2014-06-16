@@ -8,6 +8,8 @@
 #include "../FontManager.hpp"
 #include "../Main.hpp"
 
+static void box(float x, float y, float z, float size);
+
 Test3DView::Test3DView(){
     _player = new Test3DPlayer(0,0,-200,0,0,0);
 }
@@ -45,30 +47,69 @@ void Test3DView::update(){
 	_player->move(0,0,0,0,-1,0);
 }
 
+static void box(float x, float y, float z, float size){
+    glPushMatrix();
+    glTranslatef(x,y,z);
+    COLOR_LIGHTING(0,1,0);
+
+    glBegin(GL_QUADS);
+    {
+    	glNormal3f(0,0,-1);
+	glVertex3f(-size,-size,-size);
+	glVertex3f(-size, size,-size);
+	glVertex3f( size, size,-size);
+	glVertex3f( size,-size,-size);
+
+	glNormal3f(0,0,1);
+	glVertex3f( size,-size, size);
+	glVertex3f( size, size, size);
+	glVertex3f(-size, size, size);
+	glVertex3f(-size,-size, size);
+
+	glNormal3d(-1,0,0);
+	glVertex3f(-size,-size, size);
+	glVertex3f(-size, size, size);
+	glVertex3f(-size, size,-size);
+	glVertex3f(-size,-size,-size);
+
+	glNormal3d(1,0,0);
+	glVertex3f( size,-size,-size);
+	glVertex3f( size, size,-size);
+	glVertex3f( size, size, size);
+	glVertex3f( size,-size, size);
+
+	glNormal3d(0,-1,0);
+	glVertex3f(-size,-size, size);
+	glVertex3f(-size,-size,-size);
+	glVertex3f( size,-size,-size);
+	glVertex3f( size,-size, size);
+
+	glNormal3d(0,1,0);
+	glVertex3f( size, size, size);
+	glVertex3f( size, size,-size);
+	glVertex3f(-size, size,-size);
+	glVertex3f(-size, size, size);
+    }
+    glEnd();
+    
+    glPopMatrix();
+}
+
 void Test3DView::draw(sf::RenderTarget*rt){
     static sf::Clock clock;
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    // Translate the world (so, position the camera)
+    // Transform the world (so, position the camera)
     _player->performGLTransformations();
 
-    // rotate world by 90 degrees widdershins about k hat
-    //glRotatef(90,0,0,1);
-
-    //glRotatef(-45,1,0,0);
-    //glRotatef(-135,0,0,1);
-
-    float pos[] = { 100, 100, 100, 1 };
+    // Set up light0; this will be the sun!
+    float pos[] = { 0, 0, 1, 0 };
     glLightfv(GL_LIGHT0, GL_POSITION, pos);
 
-    // OpenGL seems to do spotlight cutoffs on a per-polygon basis, so having a narrow spotlight will
-    // not have a circle of light on the cube; it'll make the triangles in the cube light up and go
-    // black in a weird ugly manner. I think this may only be useful and pretty for things with very
-    // high polygon counts.
-    //float cutoff[] = { 30 };
-    //glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, cutoff);
+    float amb[] = { .2, .2, .2, 1 };
+    glLightfv(GL_LIGHT0, GL_AMBIENT, amb);
 
     // Draw axes.
     glBegin(GL_LINES);
@@ -89,7 +130,8 @@ void Test3DView::draw(sf::RenderTarget*rt){
     
     // ----------------------------------------------------------------
     // Enter box coordinates
-    glPushMatrix();    
+    /*
+    glPushMatrix();
     glRotatef(clock.getElapsedTime().asSeconds()*50, 1, 0, 0);
     glRotatef(clock.getElapsedTime().asSeconds()*30, 0, 1, 0);
     glRotatef(clock.getElapsedTime().asSeconds()*90, 0, 0, 1);
@@ -150,6 +192,13 @@ void Test3DView::draw(sf::RenderTarget*rt){
 
     // Leave box coordinates
     glPopMatrix();
+    */
+    
+    // ---------------------------------------------------------------------
+    // Draw the ground.
+    for(int i=-100; i<=100; i++)
+	for(int j=-100; j<=100; j++)
+	    box(i,j,-40,1);
     
     // ---------------------------------------------------------------------
     // We here draw debugging information on the screen.

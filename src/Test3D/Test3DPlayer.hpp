@@ -13,6 +13,7 @@ public:
  
     void performGLTransformations();
     void move(double dx, double dy, double dz, double dxrot, double dyrot, double dzrot);
+    void moveRel(double dright, double dforward, double dup, double dpitch, double droll, double dyaw);
 };
 
 #endif

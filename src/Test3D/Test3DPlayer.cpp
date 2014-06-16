@@ -22,3 +22,9 @@ void Test3DPlayer::move(double dx, double dy, double dz, double dxrot, double dy
     _yrot+=dyrot;
     _zrot+=dzrot;
 }
+
+void Test3DPlayer::moveRel(double dright, double dforward, double dup,
+			   double dpitch, double droll, double dyaw)
+{
+    // TODO
+}
