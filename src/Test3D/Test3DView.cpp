@@ -212,87 +212,8 @@ void Test3DView::draw(sf::RenderTarget*rt){
 	    glPopMatrix();
 	    //box(i,j,-40,1);
 	}
-    
-    // ---------------------------------------------------------------------
-    // We here draw debugging information on the screen.
-
-    // Calculate FPS
-    static sf::Time lastTime = clock.getElapsedTime();
-    sf::Time dtime = clock.getElapsedTime()-lastTime;
-    lastTime = clock.getElapsedTime();
-    float fps = 1/dtime.asSeconds(); // 1/(seconds/frame) = frame/second
-
-    // Draw fps graph
-    {
-	rt->pushGLStates();
-	
-	// Enter 2D Mode
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	glOrtho(0,Main::kWindowWidth,Main::kWindowHeight,0,-1,10);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glDisable(GL_CULL_FACE);
-	glClear(GL_DEPTH_BUFFER_BIT);
-
-	// ----------------------- do 2D drawing
-	const int graphH = 100;
-	const int graphW = 200;
-	static int pastFPSs[graphW];
-	static int pastFPSsIndex = 0;
-	pastFPSsIndex = (pastFPSsIndex+1)%graphW;
-	pastFPSs[pastFPSsIndex] = (int)fps;
-	
-	glTranslatef(Main::kWindowWidth-graphW,0,0);
-
-	// draw background
-	glColor4f(1,0,0,.4);
-	glBegin(GL_QUADS);
-	{
-	    glVertex2f(0,0);
-	    glVertex2f(graphW,0);
-	    glVertex2f(graphW,graphH);
-	    glVertex2f(0,graphH);
-	}
-	glEnd();
-
-	// draw data
-	glBegin(GL_LINES);
-	glColor4f(0,0,1,.6);
-	for(int i=0; i<graphW; i++){
-	    int index = (pastFPSsIndex+i+1)%graphW;
-	    glVertex2f(i,graphH);
-	    glVertex2f(i,graphH-pastFPSs[index]);
-	}
-	glEnd();	
-	// ------------------------ done with 2D drawing
-	
-	// Bring back 3D Mode
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
-
-	rt->popGLStates();
-    }
-    
+        
     glFlush();
-
-    // -------------------------
-    // Enter SFML drawing mode
-    rt->pushGLStates();
-    rt->resetGLStates();
-    
-    // draw current fps
-    char s[9];
-    snprintf(s, 8, "%0.1ffps", fps);
-    sf::Text text(s, *FontManager::getInstance()->get("res/lucida-console.ttf"), 12);
-    text.setPosition(Main::kWindowWidth-50, 0);
-    rt->draw(text);
-    
-    rt->popGLStates();
-    // Exit SFML drawing mode
-    // -------------------------
 }
 
 void Test3DView::pause(){}
