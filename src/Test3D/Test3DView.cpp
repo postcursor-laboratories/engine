@@ -91,7 +91,7 @@ static void box(float x, float y, float z, float size){
 	glVertex3f(-size, size, size);
     }
     glEnd();
-    
+
     glPopMatrix();
 }
 
@@ -197,8 +197,21 @@ void Test3DView::draw(sf::RenderTarget*rt){
     // ---------------------------------------------------------------------
     // Draw the ground.
     for(int i=-100; i<=100; i++)
-	for(int j=-100; j<=100; j++)
-	    box(i,j,-40,1);
+	for(int j=-100; j<=100; j++){
+	    // moving around the matrix push/pops doesn't seem to significantly boost performance
+	    glPushMatrix();
+	    glTranslatef(i,j,-40);
+	    COLOR_LIGHTING(0,1,0);
+	    glBegin(GL_QUADS);
+	    glNormal3f(0,0,1);
+	    glVertex3f( 1,-1, 1);
+	    glVertex3f( 1, 1, 1);
+	    glVertex3f(-1, 1, 1);
+	    glVertex3f(-1,-1, 1);
+	    glEnd();
+	    glPopMatrix();
+	    //box(i,j,-40,1);
+	}
     
     // ---------------------------------------------------------------------
     // We here draw debugging information on the screen.
