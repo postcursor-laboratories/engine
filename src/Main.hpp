@@ -11,6 +11,7 @@ class Main{
     sf::Clock _clock;
 
     void displayDebuggingInformation(sf::RenderTarget*rt);
+    bool _displayDebuggingInformation;
     
 public:
     static const size_t kWindowWidth;

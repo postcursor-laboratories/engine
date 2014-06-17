@@ -23,8 +23,6 @@ View*_views[] = {
     new SplashView()
 };
 
-static bool _displayDebuggingInformation = true;
-
 void Main::displayDebuggingInformation(sf::RenderTarget*rt){
     // We here draw debugging information on the screen.
 
@@ -104,7 +102,7 @@ void Main::displayDebuggingInformation(sf::RenderTarget*rt){
 }
 
 Main::Main():
-    _viewMode(TEST3D)
+    _viewMode(TEST3D), _displayDebuggingInformation(true)
 {
     printf("Initializing Main. Starting with view %d.\n", _viewMode);
     _instance = this;
