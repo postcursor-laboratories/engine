@@ -5,7 +5,7 @@ FILES_H    = $(shell find src -type f -name '*.hpp')
 FILES_O    = $(foreach file, $(FILES_CPP), $(patsubst src/%, obj/%, $(patsubst %.cpp, %.o, $(file))))
 #FILES_O    = $(foreach file, $(patsubst %.cpp, %.o, $(FILES_CPP)), obj/$(notdir $(file)))
 
-COMPILE_FLAGS = -Wall -std=c++11
+COMPILE_FLAGS = -Wall -std=c++11 -Iinclude
 
 # Set up linker flags
 ifeq ($(shell uname), Linux)
