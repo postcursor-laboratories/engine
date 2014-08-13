@@ -76,8 +76,8 @@ void Test3DPlayer::moveRel(double dright, double dforward, double dup,
     _translation -= dup	     * localY;
 
     *_rotation = glm::rotate(*_rotation, M_PI/180*dpitch, localX);
-    *_rotation = glm::rotate(*_rotation, M_PI/180*droll,  localY);
-    *_rotation = glm::rotate(*_rotation, M_PI/180*dyaw,   localZ);
+    *_rotation = glm::rotate(*_rotation, M_PI/180*droll,  localZ);
+    *_rotation = glm::rotate(*_rotation, M_PI/180*dyaw,   localY);
 }
 
 void Test3DPlayer::dumpState(){
