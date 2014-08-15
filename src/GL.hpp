@@ -2,8 +2,8 @@
 #define GLM_H
 
 // ================================ include GLEW
-#include <glxew.h>
-#include <glew.h>
+#include <GL/glxew.h>
+#include <GL/glew.h>
 
 #include <SFML/OpenGL.hpp>
 
