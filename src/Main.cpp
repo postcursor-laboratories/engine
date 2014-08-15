@@ -1,7 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/OpenGL.hpp>
-#include <stdio.h>
 
 #include "Main.hpp"
 #include "TextureLoader.hpp"
@@ -123,12 +121,14 @@ void Main::main(){
     sf::CircleShape shape(kWindowWidth/2);
     shape.setFillColor(sf::Color::Green);
 
+    printf("OpenGL version is %s\n", glGetString(GL_VERSION));
+    
     TextureLoader*tl = TextureLoader::getInstance();    
     tl->loadAll();
 
     bool green=true;
 
-    // --------------------------------------------- initialize OpenGL
+    // --------------------------------------------- initialize OpenGL    
     glClearDepth(1.f);		// set color and depth clear value
     glClearColor(0.f,0.f,0.f,0.f);
 

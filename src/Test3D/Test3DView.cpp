@@ -1,16 +1,16 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/OpenGL.hpp>
 
 #include <stdio.h>
 
 #include "Test3DView.hpp"
 #include "Test3DPlayer.hpp"
 #include "../FontManager.hpp"
+#include "../TextureLoader.hpp"
 #include "../Main.hpp"
 
 #include <time.h>
 
-static void box(float x, float y, float z, float size);
+//static void box(float x, float y, float z, float size);
 
 Test3DView::Test3DView(){
     _player = new Test3DPlayer(0,20,0,0,0,0);
@@ -69,9 +69,9 @@ void Test3DView::update(){
 	_player->moveRel(1,0,0,0,0,0);
     
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-	_player->moveRel(0,0,0,0,1,0);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 	_player->moveRel(0,0,0,0,-1,0);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	_player->moveRel(0,0,0,0,1,0);
     
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 	_player->moveRel(0,0,1,0,0,0);
@@ -273,22 +273,32 @@ void Test3DView::draw(sf::RenderTarget*rt){
     */
 
     glPushMatrix();
-    COLOR_LIGHTING(0,1,0);
+    //COLOR_LIGHTING(0,1,0);
     glTranslatef(0,0,-40);
 
+    static GLuint fragShader = Utilities::loadShader("Test3DFragShader.glsl", GL_FRAGMENT_SHADER);
+    static GLuint vertShader = Utilities::loadShader("Test3DVertShader.glsl", GL_VERTEX_SHADER);
+    
+    sf::Texture*picard = TextureLoader::getInstance()->get("Picard256x256.png");
+    sf::Texture::bind(picard);    
     glBegin(GL_QUADS);
     for(int i=-100; i<=100; i++){
 	for(int j=-100; j<=100; j++){
 	    T();
 	    glNormal3f(0,0,1);
 	    glVertex3f( 1+i, -1+j, 1);
+	    glTexCoord2i(0,0);
 	    glVertex3f( 1+i,  1+j, 1);
+	    glTexCoord2i(0,1);
 	    glVertex3f(-1+i,  1+j, 1);
+	    glTexCoord2i(1,0);
 	    glVertex3f(-1+i, -1+j, 1);
+	    glTexCoord2i(1,1);
 	    T();
 	}
     }
-    glEnd();
+    glEnd();    
+    sf::Texture::bind(NULL);
 
     //glPushMatrix();
     
@@ -303,7 +313,7 @@ void Test3DView::draw(sf::RenderTarget*rt){
 
     glTranslatef(0,4,0);
 
-    COLOR_LIGHTING(0,1,0);
+    COLOR_LIGHTING(0,0,1);
     glNormal3f(0,0,1);
     glVertex3f( 1+5,-1, 1);
     glVertex3f( 1+5, 1, 1);

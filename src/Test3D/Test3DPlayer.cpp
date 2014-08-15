@@ -1,8 +1,5 @@
 #include "Test3DPlayer.hpp"
-#include <SFML/OpenGL.hpp>
-
 #include "../Utilities.hpp"
-#include "GLM.hpp"
 
 Test3DPlayer::Test3DPlayer(double x, double y, double z,
 			   double xrot, double yrot, double zrot)

@@ -8,15 +8,17 @@ FILES_O    = $(foreach file, $(FILES_CPP), $(patsubst src/%, obj/%, $(patsubst %
 COMPILE_FLAGS = -Wall -std=c++11 -Iinclude
 
 # Set up linker flags
-ifeq ($(shell uname), Linux)
-ifeq ($(shell uname -m), x86)
+ifeq ($(shell uname), Linux)	# ------------------ if Linux
+ifeq ($(shell uname -m), x86)	#                          32-bit
 LINK_FLAGS = -Llib/linux-i386 -lsfml-graphics -lsfml-system -lsfml-window
 endif
-ifeq ($(shell uname -m), x86_64)
+
+ifeq ($(shell uname -m), x86_64) #                         64-bit
 LINK_FLAGS = -Llib/linux-amd64 -lsfml-graphics -lsfml-system -lsfml-window
 endif
 endif
-ifeq ($(shell uname), Darwin)
+
+ifeq ($(shell uname), Darwin)	# ------------------ if OS X
 LINK_FLAGS = -Llib/darwin-universal -framework sfml-graphics -framework sfml-system -framework sfml-window
 endif
 

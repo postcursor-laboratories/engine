@@ -2,7 +2,7 @@
 #define TEST3DPLAYER_H
 
 #include "../Player.hpp"
-#include "GLM.hpp"
+#include "../Utilities.hpp"
 
 class Test3DPlayer : public Player{
     Vec3 _translation;

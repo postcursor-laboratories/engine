@@ -39,7 +39,10 @@ void TextureLoader::loadAll(){
 	    sf::Texture*texture = new sf::Texture();
 	    
 	    std::string filename=std::string("res/")+std::string(ent->d_name);
-	    texture->loadFromFile(filename);
+	    if(!texture->loadFromFile(filename)){
+		printf("Error: could not load file `%s'\n", name.c_str());
+		continue;
+	    }
 
 	    _textures[name] = texture;
 	    
