@@ -4,8 +4,12 @@
 #include <SFML/Graphics.hpp>
 
 class View{
+    
 public:
     virtual ~View(){}
+
+    // For initializing things after Main sets up the environment (eg OpenGL)
+    virtual void init() = 0;
     
     virtual void draw(sf::RenderTarget*rt) = 0;
     virtual void update()  = 0;

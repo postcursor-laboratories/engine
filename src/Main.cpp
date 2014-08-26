@@ -10,15 +10,19 @@
 #include "FontManager.hpp"
 #include "Test3D/Test3DView.hpp"
 
+#define STARTUP_VIEW_MODE TEST3D
+
 const size_t Main::kWindowWidth  = 1000;
 const size_t Main::kWindowHeight = 800;
 const std::string Main::kName    = std::string("Test!");
 Main*Main::_instance = NULL;
 
+#define VIEW_TABLE_END ((View*)_views) // Hey, it's a unique non-null pointer
 View*_views[] = {
     NULL,
     new Test3DView(),
-    new SplashView()
+    new SplashView(),
+    VIEW_TABLE_END
 };
 
 void Main::displayDebuggingInformation(sf::RenderTarget*rt){
@@ -100,7 +104,7 @@ void Main::displayDebuggingInformation(sf::RenderTarget*rt){
 }
 
 Main::Main():
-    _viewMode(TEST3D), _displayDebuggingInformation(true)
+    _viewMode(STARTUP_VIEW_MODE), _displayDebuggingInformation(true)
 {
     printf("Initializing Main. Starting with view %d.\n", _viewMode);
     _instance = this;
@@ -143,8 +147,12 @@ void Main::main(){
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
-    // ---------------------------------------------------------------
-
+    
+    // --------------------------------------------- initialize Views
+    for(int i=0; _views[i]!=VIEW_TABLE_END; i++)
+	if(_views[i])
+	    _views[i]->init();
+    
     if(_views[_viewMode])
 	_views[_viewMode]->unpause();
     

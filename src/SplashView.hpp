@@ -11,6 +11,8 @@ class SplashView : public View{
     
 public:
     SplashView();
+
+    void init();
     
     void draw(sf::RenderTarget*rt);
     void update();

@@ -16,6 +16,16 @@ Test3DView::Test3DView(){
     _player = new Test3DPlayer(0,20,0,0,0,0);
 }
 
+void Test3DView::init(){
+    GLuint fragShader = Utilities::loadShader("Test3DFragShader1.glsl", GL_FRAGMENT_SHADER);
+    GLuint vertShader = Utilities::loadShader("Test3DVertShader1.glsl", GL_VERTEX_SHADER);
+
+    _shaderProgram = glCreateProgram();
+    glAttachShader(_shaderProgram, vertShader);
+    glAttachShader(_shaderProgram, fragShader);
+    glLinkProgram(_shaderProgram);    
+}
+
 // Calls to glColor3f no longer do anything when lighting is enabled.
 // You have to set material properties. This does BOTH, for MAXIMUM
 // COLORNESS and EXTREME FABULOSITY
@@ -275,9 +285,6 @@ void Test3DView::draw(sf::RenderTarget*rt){
     glPushMatrix();
     //COLOR_LIGHTING(0,1,0);
     glTranslatef(0,0,-40);
-
-    static GLuint fragShader = Utilities::loadShader("Test3DFragShader.glsl", GL_FRAGMENT_SHADER);
-    static GLuint vertShader = Utilities::loadShader("Test3DVertShader.glsl", GL_VERTEX_SHADER);
     
     sf::Texture*picard = TextureLoader::getInstance()->get("Picard256x256.png");
     sf::Texture::bind(picard);    

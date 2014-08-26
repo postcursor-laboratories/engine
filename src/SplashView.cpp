@@ -32,6 +32,8 @@ SplashView::SplashView():
     _slogan.setStyle(sf::Text::Italic);
 }
 
+void SplashView::init(){}
+
 void SplashView::pause(){}
 
 void SplashView::unpause(){
