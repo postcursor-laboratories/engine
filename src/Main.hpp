@@ -12,13 +12,13 @@ class Main{
 
     void displayDebuggingInformation(sf::RenderTarget*rt);
     bool _displayDebuggingInformation;
+
+    Main();
     
 public:
     static const size_t kWindowWidth;
     static const size_t kWindowHeight;
     static const std::string kName;
-
-    Main();
 
     static Main*getInstance();
     

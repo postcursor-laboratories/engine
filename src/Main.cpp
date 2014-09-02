@@ -235,10 +235,11 @@ void Main::setView(ViewMode v){
 	_views[_viewMode]->unpause();
 }
 
-Main*Main::getInstance(){ return _instance; }
+Main*Main::getInstance(){
+    return _instance ? _instance : _instance=new Main();
+}
 
 int main(int argc, char*argv[]){
-    Main m = Main();
-    m.main();
+    Main::getInstance()->main();
     return 0;
 }
